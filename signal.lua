@@ -98,7 +98,9 @@ event.listen("Train", function()
   print("event fired")
   local detector = component.proxy(Daddress)
   print(detector.info())
+--[[
   if (detector.info() == nil) then
     print("No Train")
   end
+--]]
 end)
