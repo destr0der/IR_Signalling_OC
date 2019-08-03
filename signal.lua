@@ -75,8 +75,16 @@ event.listen("ir_train_overhead", function(name, address, augment_type, uuid)
   if name ~= "ir_train_overhead" or augment_type ~= "DETECTOR" then
     return
   end
-  signal = 1
-  ToS = 1
+--Set ToS for train on/off signal
+  if uuid ~= nil then
+    print("train")
+    ToS = 1
+    --works
+  else
+    print("no train")
+    ToS = 0
+    --doesnt work
+  end
 --defining detector address
   local detector = component.proxy(address)
 --get speed info
@@ -98,16 +106,6 @@ event.listen("ir_train_overhead", function(name, address, augment_type, uuid)
       modem.send(previous, port, smessage)
       os.sleep(0.5)
     end
-  end
---....
-  if uuid ~= nil then
-    print("train")
-    ToS = 1
-    --works
-  else
-    print("no train")
-    ToS = 0
-    --doesnt work
   end
 --send signal through to previous signalpc
   smessage = signal..ToS..spd_c
